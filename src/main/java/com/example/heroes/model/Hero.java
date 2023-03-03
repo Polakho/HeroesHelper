@@ -1,32 +1,46 @@
-package com.heroes.model;
+package com.example.heroes.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "hero")
 public class Hero {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String email;
+    private String password;
     private String name;
     @ManyToMany(targetEntity=IncidentType.class)
     private Set<IncidentType> incidentTypes;
-    private String telephone;
-    @OneToOne
+    private String phone;
+    @OneToOne(targetEntity = Location.class, cascade = CascadeType.ALL)
     private Location location;
-    private String passwordHash;
-    private String passwordCrypt;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
@@ -45,12 +59,12 @@ public class Hero {
         this.incidentTypes = incidentTypes;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setPhone(String telephone) {
+        this.phone = telephone;
     }
 
     public Location getLocation() {
@@ -60,22 +74,5 @@ public class Hero {
     public void setLocation(Location location) {
         this.location = location;
     }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    public String getPasswordCrypt() {
-        return passwordCrypt;
-    }
-
-    public void setPasswordCrypt(String passwordCrypt) {
-        this.passwordCrypt = passwordCrypt;
-    }
-
 
 }

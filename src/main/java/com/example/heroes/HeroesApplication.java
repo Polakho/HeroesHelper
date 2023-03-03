@@ -1,22 +1,22 @@
 package com.example.heroes;
 
-import com.heroes.controller.IncidentController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 
 @SpringBootApplication(scanBasePackages = {
-        "com.heroes.controller",
-        "com.heroes.service",
-        "com.heroes.model",
+        "com.example.heroes.controller",
+        "com.example.heroes.service",
+        "com.example.heroes.model",
+        "com.example.heroes.config",
+        "com.example.heroes.repository"
 })
-@EntityScan("com.heroes.model")
-@EnableJpaRepositories("com.heroes.repository")
+@EnableJpaRepositories("com.example.heroes.*")
+@ComponentScan(basePackages = { "com.example.heroes.*" })
+@EntityScan("com.example.heroes.*")
 
 public class HeroesApplication {
     public static void main(String[] args) {

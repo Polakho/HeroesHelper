@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hero Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <th:block th:include="fragments/headerLibs"></th:block>
+</head>
+<body>
+
+<th:block th:include="fragments/navbar"></th:block>
+
+<div class="w3-content" style="max-width:2000px;height: 100vh">
+
+  <!-- The Register Section -->
+  <div class="w3-container w3-display-middle w3-content w3-padding-64" style="max-width:800px">
+    <h2 class="w3-wide w3-center">Success</h2>
+    <p class="w3-opacity w3-center"><i>Your account was successfuly created ! </i></p>
+    <div class="w3-row w3-padding-32 center">
+      Hello <th:p th:text="${hero.getName()}"></th:p> ! You are ready to save the world.
+    </div>
+  </div>
+
+  <!-- End Page Content -->
+</div>
+<th:block th:include="fragments/footer"></th:block>
+
+</body>
+</html>

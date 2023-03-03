@@ -1,11 +1,10 @@
-package com.heroes.service;
+package com.example.heroes.service;
 
 import java.util.List;
-import java.util.ArrayList;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
-import com.heroes.model.IncidentType;
-import com.heroes.repository.IncidentTypeRepository;
+import com.example.heroes.model.IncidentType;
+import com.example.heroes.repository.IncidentTypeRepository;
 @Service
 public class IncidentService {
     private final IncidentTypeRepository incidentTypeRepository;

@@ -6,6 +6,28 @@
 </head>
 <body>
 Hello world ! eeee
-<p th:text="${test}"></p>
+<table class="w3-table w3-bordered">
+    <thead>
+    <tr>
+        <th><b>Name</b></th>
+        <th><b>Phone</b></th>
+        <th><b>Email</b></th>
+        <th><b>IncidentType</b></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="hero : ${list}">
+
+        <td th:text="${hero.getName()}"></td>
+        <td th:text="${hero.getPhone()}"></td>
+        <td th:text="${hero.getEmail()}"></td>
+        <td th:each="incident : ${hero.getIncidentTypes()}">
+            <p th:text="${incident.getName()}"></p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
 </body>
 </html>

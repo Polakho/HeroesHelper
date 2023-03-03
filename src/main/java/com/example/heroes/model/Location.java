@@ -1,4 +1,4 @@
-package com.heroes.model;
+package com.example.heroes.model;
 
 import jakarta.persistence.*;
 
@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Location {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String longitude;
     private String latitude;
@@ -16,6 +16,15 @@ public class Location {
     private String houseNumber;
     private String streetName;
     private String postalCode;
+
+    public Location(String longitude, String latitude) {
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
+
+    public Location() {
+
+    }
 
     public int getId() {
         return id;

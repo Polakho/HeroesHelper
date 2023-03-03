@@ -1,4 +1,4 @@
-package com.heroes.model;
+package com.example.heroes.model;
 
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hero Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <th:block th:include="fragments/headerLibs"></th:block>
+</head>
+<body>
+
+<th:block th:include="fragments/navbar"></th:block>
+
+<div class="w3-content" style="max-width:2000px;margin-top:46px">
+
+  <!-- The Register Section -->
+  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="contact">
+    <h2 class="w3-wide w3-center">Hero Register</h2>
+    <p class="w3-opacity w3-center"><i>Ready ?</i></p>
+    <div class="w3-row w3-padding-32">
+      <form id="hero" th:action="@{/hero/register}" th:object="${registerHero}" method="post" class="w3-center">
+            <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+              <div class="w3-half">
+                <input class="w3-input w3-border" type="text" placeholder="Name" required th:field="*{name}">
+              </div>
+              <div class="w3-half">
+                <input class="w3-input w3-border" type="text" placeholder="Email" required th:field="*{email}">
+              </div>
+            </div>
+            <input class="w3-input w3-border" type="tel" placeholder="Phone" required th:field="*{phone}" style="margin-bottom:8px">
+            <input class="w3-input w3-border" type="password" placeholder="Password" required th:field="*{password}" style="margin-bottom:8px">
+            <div>
+              <select multiple required class="types" th:field="*{incidentTypes}" style="width : 100%" >
+                <th:block th:each="type : ${IncidentTypes}">
+                  <option th:utext="${type.getName()}" th:value="${type.getId()}"></option>
+                </th:block>
+              </select>
+            </div>
+
+            <div style="margin-top: 20px">
+              <label class="w3">Location :</label>
+              <div id="map" style="height: 300px; margin-top: 10px"></div>
+              <input type="hidden" th:field="*{lat}" value="" />
+              <input type="hidden" th:field="*{lng}" value="" />
+            </div>
+          <button class="w3-button w3-black w3-section w3-centered" type="submit">SIGN UP</button>
+      </form>
+
+  </div>
+</div>
+
+<!-- End Page Content -->
+</div>
+<th:block th:include="fragments/footer"></th:block>
+
+</body>
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    $('.types').select2({
+      maximumSelectionLength: 3,
+      placeholder: "Incidents types"
+    });
+  });
+
+  var formInfo = document.forms['hero'];
+
+  var map = L.map('map').setView([43.48121728524995, 5.386322882677136], 8);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+
+  let geoCoderOptions = {
+
+    collapsed: false,
+    defaultMarkGeocode: false,
+    geocoder: L.Control.Geocoder.nominatim({
+      geocodingQueryParams: {
+        // List the country codes here
+        countrycodes: 'fr'
+      }
+    })
+  }
+  var marker;
+
+  L.Control.geocoder(geoCoderOptions).on('markgeocode', function(e) {
+    if (marker != null) {
+      map.removeLayer(marker);
+    }
+    var latlng = e.geocode.center;
+    marker = L.marker(latlng).addTo(map);
+    formInfo.lat.value = latlng.lat;
+    formInfo.lng.value = latlng.lng;
+    map.fitBounds(e.geocode.bbox);
+  }).addTo(map);
+
+  function onMapClick(e) {
+    if (marker != null){
+      map.removeLayer(marker);
+      var newMarker = new L.marker(e.latlng).addTo(map);
+      formInfo.lat.value = e.latlng.lat;
+      formInfo.lng.value = e.latlng.lng;
+      marker = newMarker;
+    } else {
+      var newMarker = new L.marker(e.latlng).addTo(map);
+      formInfo.lat.value = e.latlng.lat;
+      formInfo.lng.value = e.latlng.lng;
+      marker = newMarker;
+    }
+  }
+  map.on('click', onMapClick);
+</script>
+</html>
